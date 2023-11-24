@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager _instance;
     private static int maskToVisit;
     [SerializeField] private Vector3 offsetLocation;
+    private static int tutorialNum;
 
     [Header ("GameObject Prefab")]
     [SerializeField] private GameObject koreaPrefab;
@@ -100,22 +101,23 @@ public class GameManager : MonoBehaviour
         distanceTravese = distanceContainer;
         uiManager = UI_Manager._instance;
         ShowTutorial();
+        
         if (startTracking)
         {
             int valueIncr = Random.Range(15, 51);
             maskToVisit += valueIncr;
         }
         else
-            maskToVisit = 100;
+            maskToVisit = 20;
         
     }
 
     private void ShowTutorial()
     {
-        if (!PlayerPrefs.HasKey("firstPlay"))
+        if (!PlayerPrefs.HasKey("firstPlay") || PlayerPrefs.GetInt("firstPlay") < 3)
         {
             isTutorialGamePlay = true;
-            PlayerPrefs.SetInt("firstPlay", 0);
+            PlayerPrefs.SetInt("firstPlay", tutorialNum += 1);
             uiManager.ShowUpTutorialGamePlay();
         }
         else
@@ -129,12 +131,11 @@ public class GameManager : MonoBehaviour
     {
         StartEvent();
         SwitchMapEvent();
-        //Debug.Log(Time.unscaledTime / Time.unscaledDeltaTime);
         if (isGameOver)
         {
             startTracking = false;
         }
-    }
+}
 
     private void StartEvent()
     {
