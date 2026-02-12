@@ -14,8 +14,6 @@
   </a>
 </p>
 
-<img src="assets/game_banner.png" alt="KoreaMemory Game" width="800"/>
-
 </div>
 
 ---
